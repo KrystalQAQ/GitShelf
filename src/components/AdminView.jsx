@@ -3,9 +3,9 @@ import { showToast } from '../lib/toast';
 import ConfirmDialog from './ConfirmDialog';
 import {
   getPat, setPat, clearPat, verifyPat, detectRepo, saveRepo,
-  getSplitLevel, fetchCatalog, persistCatalog, deepCloneItems,
+  fetchCatalog, persistCatalog, deepCloneItems,
   uploadContent as apiUploadContent, triggerReconvert, deleteItemPermanently,
-  saveSplitLevelConfig, loadHistory, fetchFailures, dismissFailure, retryFailure,
+  loadHistory, fetchFailures, dismissFailure, retryFailure,
   getDisplayTitle, normalizeVisibility,
   normalizeTags, parseTagsInput, formatBytes, dateFormatter, dateTimeFormatter,
   numberFormatter, MAX_FILE_SIZE, VISIBILITY_VALUES, toIsoNow,
@@ -689,7 +689,6 @@ function HistorySection({ repo }) {
 function SettingsSection({ repo, onRepoChange }) {
   const [owner, setOwner] = useState(repo.owner);
   const [name, setName] = useState(repo.name);
-  const [splitLevel, setSplitLevelLocal] = useState(getSplitLevel());
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [showClearPat, setShowClearPat] = useState(false);
@@ -702,13 +701,6 @@ function SettingsSection({ repo, onRepoChange }) {
     showToast('Repository saved', 'success');
   };
 
-  const handleSplitLevel = async (e) => {
-    const level = e.target.value;
-    setSplitLevelLocal(level); setSaving(true); setError('');
-    try { await saveSplitLevelConfig(level, { owner: repo.owner, name: repo.name }); showToast('Split level saved', 'success'); }
-    catch (err) { setError(err.message); }
-    finally { setSaving(false); }
-  };
 
   return (
     <section class="admin-settings">
@@ -723,14 +715,6 @@ function SettingsSection({ repo, onRepoChange }) {
             <div class="admin-inline-actions"><button class="btn btn-primary" type="submit">Save</button></div>
           </div>
         </form>
-      </div>
-
-      <div class="admin-setting-group">
-        <h3 class="admin-subheading">Chapter Split Level</h3>
-        <select class="admin-select" value={splitLevel} onChange={handleSplitLevel} disabled={saving} aria-label="Chapter split level">
-          <option value="H1">H1</option><option value="H2">H2</option><option value="H3">H3</option>
-        </select>
-        <p class="admin-hint">Controls how PDF content is split into chapters.</p>
       </div>
 
       <div class="admin-setting-group">

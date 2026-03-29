@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PDF to Book conversion pipeline.
 
-Usage: python scripts/convert.py [--input-dir INPUT] [--output-dir OUTPUT] [--split-level LEVEL]
+Usage: python scripts/convert.py [--input-dir INPUT] [--output-dir OUTPUT]
 """
 
 import argparse
@@ -177,7 +177,6 @@ def _write_book_metadata(
     book_id: str,
     source_pdf: str,
     pdf_md5: str,
-    split_level: int,
     page_count: int,
     updated_at: str,
 ) -> None:
@@ -195,7 +194,6 @@ def _write_book_metadata(
         "type": "book",
         "source": source_pdf,
         "pdf_md5": pdf_md5,
-        "split_level": split_level,
         "page_count": page_count,
         "created_at": created_at,
         "updated_at": updated_at,
@@ -286,7 +284,6 @@ def _find_cached_md5(output_dir: Path, source_pdf: str) -> str | None:
 def reconvert_from_cache(
     source_pdf: str,
     output_dir: Path,
-    split_level: int = 1,
 ) -> None:
     """Reconvert a book from cache when the original PDF is no longer available."""
     md5 = _find_cached_md5(output_dir, source_pdf)
@@ -326,8 +323,8 @@ def reconvert_from_cache(
     markdown = localize_images(markdown, images_dir, CHAPTER_IMAGES_PREFIX)
     markdown = _rewrite_chapter_image_paths(markdown, book_id)
 
-    chapters = split_by_headings(markdown, level=split_level)
-    generate_book_structure(book_id, title, chapters, output_dir, split_level)
+    chapters = split_by_headings(markdown, level=1)
+    generate_book_structure(book_id, title, chapters, output_dir)
 
     book_dir = output_dir / book_id
     _write_book_metadata(
@@ -335,7 +332,6 @@ def reconvert_from_cache(
         book_id=book_id,
         source_pdf=source_pdf,
         pdf_md5=md5,
-        split_level=split_level,
         page_count=page_count,
         updated_at=_utc_now_iso(),
     )
@@ -391,7 +387,6 @@ def _read_cache(md5: str) -> tuple[str, dict[str, bytes], int, list[TocEntry]] |
 def convert_single_pdf(
     pdf_path: Path,
     output_dir: Path,
-    split_level: int = 1,
 ) -> None:
     """Convert one PDF through the full pipeline.
 
@@ -452,8 +447,8 @@ def convert_single_pdf(
     markdown = localize_images(markdown, images_dir, CHAPTER_IMAGES_PREFIX)
     markdown = _rewrite_chapter_image_paths(markdown, book_id)
 
-    chapters = split_by_headings(markdown, level=split_level)
-    generate_book_structure(book_id, title, chapters, output_dir, split_level)
+    chapters = split_by_headings(markdown, level=1)
+    generate_book_structure(book_id, title, chapters, output_dir)
 
     book_dir = output_dir / book_id
     _write_book_metadata(
@@ -461,7 +456,6 @@ def convert_single_pdf(
         book_id=book_id,
         source_pdf=pdf_path.name,
         pdf_md5=md5,
-        split_level=split_level,
         page_count=page_count,
         updated_at=_utc_now_iso(),
     )
@@ -566,24 +560,8 @@ def _remove_failure(filename: str, docs_dir: Path) -> None:
     )
 
 
-def _read_config_split_level() -> int | None:
-    """Read split_level from .pdf2book.json if it exists."""
-    config_path = Path(".pdf2book.json")
-    if config_path.exists():
-        try:
-            config = json.loads(config_path.read_text(encoding="utf-8"))
-            level = config.get("split_level")
-            if level in (1, 2, 3):
-                return level
-        except (json.JSONDecodeError, KeyError):
-            pass
-    return None
-
-
 def main() -> None:
     """Main entry point. Parse args, run pipeline."""
-    config_level = _read_config_split_level()
-
     parser = argparse.ArgumentParser(description="Convert PDFs to online books.")
     parser.add_argument(
         "--input-dir",
@@ -597,13 +575,6 @@ def main() -> None:
         default=Path("docs/books"),
         help="Path to output directory (default: docs/books)",
     )
-    parser.add_argument(
-        "--split-level",
-        type=int,
-        choices=[1, 2, 3],
-        default=config_level or 1,
-        help="Heading level for chapter splitting: 1, 2, or 3 (default: from .pdf2book.json or 1)",
-    )
     args = parser.parse_args()
 
     # If INPUT_FILENAME is set (from workflow_dispatch), filter to that file only.
@@ -616,7 +587,7 @@ def main() -> None:
             # PDF not in input/ — try reconvert from cache
             print(f"PDF not found, attempting reconvert from cache: {input_filename}")
             try:
-                reconvert_from_cache(input_filename, args.output_dir, args.split_level)
+                reconvert_from_cache(input_filename, args.output_dir)
                 build_manifest(args.output_dir)
                 print("Manifest rebuilt.")
                 return
@@ -635,11 +606,7 @@ def main() -> None:
     failures: list[tuple[Path, Exception]] = []
     for pdf_path in jobs:
         try:
-            convert_single_pdf(
-                pdf_path,
-                args.output_dir,
-                args.split_level,
-            )
+            convert_single_pdf(pdf_path, args.output_dir)
         except Exception as exc:
             print(f"  FAILED: {pdf_path.name}: {exc}", file=sys.stderr)
             failures.append((pdf_path, exc))

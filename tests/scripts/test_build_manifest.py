@@ -35,7 +35,6 @@ def _create_book(
                 "id": book_id,
                 "type": "book",
                 "source": source,
-                "split_level": 1,
                 "page_count": 8,
                 "created_at": "2026-03-25T10:00:00Z",
                 "updated_at": "2026-03-25T10:00:00Z",
@@ -65,6 +64,8 @@ class BuildManifestTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
             books_dir = root / "docs" / "books"
+            articles_dir = root / "docs" / "articles"
+            sites_dir = root / "docs" / "sites"
             manifest_path = root / "docs" / "manifest.json"
             metadata_path = root / "docs" / "catalog-metadata.json"
             catalog_path = root / "docs" / "catalog.json"
@@ -103,6 +104,8 @@ class BuildManifestTest(unittest.TestCase):
                 output_path=manifest_path,
                 catalog_metadata_path=metadata_path,
                 catalog_output_path=catalog_path,
+                articles_dir=articles_dir,
+                sites_dir=sites_dir,
             )
 
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -124,6 +127,8 @@ class BuildManifestTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
             books_dir = root / "docs" / "books"
+            articles_dir = root / "docs" / "articles"
+            sites_dir = root / "docs" / "sites"
             manifest_path = root / "docs" / "manifest.json"
             metadata_path = root / "docs" / "catalog-metadata.json"
             catalog_path = root / "docs" / "catalog.json"
@@ -135,6 +140,8 @@ class BuildManifestTest(unittest.TestCase):
                 output_path=manifest_path,
                 catalog_metadata_path=metadata_path,
                 catalog_output_path=catalog_path,
+                articles_dir=articles_dir,
+                sites_dir=sites_dir,
             )
 
             self.assertTrue(metadata_path.exists())
@@ -149,6 +156,8 @@ class BuildManifestTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
             books_dir = root / "docs" / "books"
+            articles_dir = root / "docs" / "articles"
+            sites_dir = root / "docs" / "sites"
             manifest_path = root / "docs" / "manifest.json"
             metadata_path = root / "docs" / "catalog-metadata.json"
             catalog_path = root / "docs" / "catalog.json"
@@ -174,6 +183,8 @@ class BuildManifestTest(unittest.TestCase):
                     output_path=manifest_path,
                     catalog_metadata_path=metadata_path,
                     catalog_output_path=catalog_path,
+                    articles_dir=articles_dir,
+                    sites_dir=sites_dir,
                 )
 
     def test_typed_metadata_can_distinguish_same_id_across_content_types(self) -> None:

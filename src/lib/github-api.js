@@ -2,7 +2,6 @@ const GITHUB_API_BASE = 'https://api.github.com';
 const PAT_STORAGE_KEY = 'github_pat';
 const REPO_OWNER_KEY = 'admin_repo_owner';
 const REPO_NAME_KEY = 'admin_repo_name';
-const SPLIT_LEVEL_KEY = 'admin_split_level';
 const REPO_WRITE_BRANCH = 'main';
 
 const FAILURES_PATH = 'docs/failures.json';
@@ -40,8 +39,6 @@ export function saveRepo(owner, name) {
   localStorage.setItem(REPO_OWNER_KEY, owner);
   localStorage.setItem(REPO_NAME_KEY, name);
 }
-export function getSplitLevel() { return localStorage.getItem(SPLIT_LEVEL_KEY) || 'H2'; }
-export function setSplitLevel(level) { localStorage.setItem(SPLIT_LEVEL_KEY, level); }
 
 // --- API ---
 export async function githubApi(path, options = {}) {
@@ -327,17 +324,6 @@ export async function deleteItemPermanently(item, repo, catalog) {
   return next;
 }
 
-export async function saveSplitLevelConfig(level, repo) {
-  if (!repo.owner || !repo.name) throw new Error('Repository not configured.');
-  let existing = {};
-  try { const f = await readRepositoryJson(repo, '.pdf2book.json'); existing = f.data || {}; }
-  catch (e) { if (!isNotFoundError(e)) throw e; }
-  existing.split_level = level;
-  await commitRepositoryOperations(repo, `chore(admin): update split level to ${level}`, [
-    { path: '.pdf2book.json', content: JSON.stringify(existing, null, 2) + '\n' },
-  ]);
-  setSplitLevel(level);
-}
 
 export async function loadHistory(repo) {
   try {

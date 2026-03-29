@@ -6,7 +6,7 @@ Handles three content types from input/:
   - .md  → article (single markdown document)
   - .zip → site (static site extraction)
 
-Usage: python scripts/process.py [--input-dir INPUT] [--output-dir OUTPUT] [--split-level LEVEL]
+Usage: python scripts/process.py [--input-dir INPUT] [--output-dir OUTPUT]
 """
 
 import argparse
@@ -32,7 +32,6 @@ try:
         ensure_unique_content_id,
         generate_book_id,
         reconvert_from_cache,
-        _read_config_split_level,
         _write_failures,
         _remove_failure,
     )
@@ -43,7 +42,6 @@ except ImportError:
         ensure_unique_content_id,
         generate_book_id,
         reconvert_from_cache,
-        _read_config_split_level,
         _write_failures,
         _remove_failure,
     )
@@ -297,15 +295,9 @@ def _resolve_input_file(input_dir: Path, filename: str) -> Path:
 
 
 def main() -> None:
-    config_level = _read_config_split_level()
-
     parser = argparse.ArgumentParser(description="Process content (PDF, Markdown, ZIP).")
     parser.add_argument("--input-dir", type=Path, default=Path("input"))
     parser.add_argument("--output-dir", type=Path, default=Path("docs"))
-    parser.add_argument(
-        "--split-level", type=int, choices=[1, 2, 3],
-        default=config_level or 1,
-    )
     args = parser.parse_args()
 
     books_dir = args.output_dir / "books"
@@ -340,7 +332,7 @@ def main() -> None:
             if input_filename.lower().endswith(".pdf"):
                 print(f"PDF not found, attempting reconvert from cache: {input_filename}")
                 try:
-                    reconvert_from_cache(input_filename, books_dir, args.split_level)
+                    reconvert_from_cache(input_filename, books_dir)
                     build_manifest(
                         books_dir=books_dir,
                         output_path=manifest_path,
@@ -374,7 +366,7 @@ def main() -> None:
     # Process PDFs (existing pipeline)
     for pdf_path in pdf_jobs:
         try:
-            convert_single_pdf(pdf_path, books_dir, args.split_level)
+            convert_single_pdf(pdf_path, books_dir)
         except Exception as exc:
             print(f"  FAILED: {pdf_path.name}: {exc}", file=sys.stderr)
             failures.append((pdf_path, exc))

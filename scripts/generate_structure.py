@@ -30,13 +30,9 @@ def _slugify_anchor(text: str) -> str:
     return anchor.strip("-")
 
 
-def _extract_subheadings(content: str, split_level: int) -> list[dict[str, str]]:
-    """Find headings one level deeper than the split level within a chapter.
-
-    For example, if chapters were split at H1, this extracts H2 headings
-    to produce sub-children entries with anchors.
-    """
-    sub_level = split_level + 1
+def _extract_subheadings(content: str) -> list[dict[str, str]]:
+    """Find H2 headings within a chapter to produce sub-children entries with anchors."""
+    sub_level = 2
     pattern = re.compile(rf"^{'#' * sub_level}(?!#)\s+(.+)$", re.MULTILINE)
     subheadings: list[dict[str, str]] = []
     for match in pattern.finditer(content):
@@ -51,17 +47,16 @@ def _extract_subheadings(content: str, split_level: int) -> list[dict[str, str]]
 def _build_toc(
     title: str,
     chapters: list[Chapter],
-    split_level: int = 1,
 ) -> dict:
     """Build the toc.json structure from a list of chapters.
 
     Top-level children correspond to chapters. Each chapter entry
-    includes sub-children derived from the next heading level.
+    includes sub-children derived from H2 headings.
     """
     children: list[dict] = []
     for chapter in chapters:
         entry: dict = {"title": chapter.title, "slug": chapter.slug}
-        subheadings = _extract_subheadings(chapter.content, split_level)
+        subheadings = _extract_subheadings(chapter.content)
         if subheadings:
             entry["children"] = [
                 {
@@ -98,7 +93,6 @@ def generate_book_structure(
     title: str,
     chapters: list[Chapter],
     output_dir: Path = Path("docs/books"),
-    split_level: int = 1,
 ) -> Path:
     """Create book directory, write chapter files, generate toc.json.
 
@@ -129,7 +123,7 @@ def generate_book_structure(
         chapter_path = chapters_dir / f"{chapter.slug}.md"
         chapter_path.write_text(chapter.content, encoding="utf-8")
 
-    toc = _build_toc(title, chapters, split_level)
+    toc = _build_toc(title, chapters)
     toc_path = book_dir / "toc.json"
     toc_path.write_text(json.dumps(toc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 

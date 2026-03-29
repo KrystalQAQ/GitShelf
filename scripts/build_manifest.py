@@ -193,7 +193,6 @@ def _build_book_entry(book_dir: Path) -> dict:
         "created_at": created_at,
         "updated_at": updated_at,
         "source": source,
-        "split_level": meta.get("split_level"),
         "page_count": meta.get("page_count"),
     }
 
@@ -292,7 +291,6 @@ def build_manifest(
                 "created_at": generated["created_at"],
                 "updated_at": generated["updated_at"],
                 "source": metadata.get("source") or generated["source"],
-                "split_level": generated["split_level"],
                 "page_count": generated["page_count"],
             }
             catalog_entries.append(entry)
