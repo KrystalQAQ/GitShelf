@@ -1,0 +1,45 @@
+{
+  "title": "监控单车页面iframe嵌入开发文档",
+  "children": [
+    {
+      "title": "Preface",
+      "slug": "00-preface"
+    },
+    {
+      "title": "目录",
+      "slug": "01-目录"
+    },
+    {
+      "title": "文档简介",
+      "slug": "02-文档简介",
+      "children": [
+        {
+          "title": "1.1特别声明",
+          "slug": "02-文档简介",
+          "anchor": "1-1"
+        },
+        {
+          "title": "1.2产品说明",
+          "slug": "02-文档简介",
+          "anchor": "1-2"
+        }
+      ]
+    },
+    {
+      "title": "接入步骤",
+      "slug": "03-接入步骤",
+      "children": [
+        {
+          "title": "1.3 Access token 的获取",
+          "slug": "03-接入步骤",
+          "anchor": "1-3-access-token"
+        },
+        {
+          "title": "1.4页面url生成",
+          "slug": "03-接入步骤",
+          "anchor": "1-4-url"
+        }
+      ]
+    }
+  ]
+}
