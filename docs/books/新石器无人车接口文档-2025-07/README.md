@@ -1,0 +1,81 @@
+# 新石器无人车接口文档（2025.07)
+
+## Chapters
+
+- 新⽯器⽆⼈⻋接⼝⽂档 （2025.05）
+- 1 请求说明
+- 1.1、请求地址:
+- 1.2、⾃定义http协议头
+- 1.2.1、X-From
+- 1.2.2、X-Version
+- 1.3、Token⽣成规则
+- 代码块
+- 2 getAccessToken
+- 接⼝说明
+- 请求参数(Query Param)
+- 响应体
+- 3 getVehicleList
+- 接⼝说明
+- 请求参数(Query Param)
+- 响应体
+- 4 getVehicleInfo
+- 接⼝说明
+- 请求参数(Query Param)
+- 响应体
+- 5 listStationByVin
+- 接⼝说明
+- 请求参数(Query Param)
+- 响应体
+- 6 missionStart
+- 接⼝说明
+- 响应体
+- 7 getCurrentMission
+- 接⼝说明
+- 请求参数(Query Param)
+- 请求体(Request Body)
+- 响应体
+- 8 getPlanningRoute
+- 接⼝说明
+- 请求参数(Query Param)
+- 请求体(Request Body)
+- 响应体
+- 9 missionCancel（⻋速为0时⽅可取消）
+- 接⼝说明
+- 请求参数(Query Param)
+- 响应体
+- 代码块
+- 10 cabinetOpen
+- 接⼝说明
+- 请求参数(Query Param)
+- 请求体(Request Body)
+- 响应体
+- 11 powerOnOff
+- 接⼝说明
+- 请求参数(Query Param)
+- 请求体(Request Body)
+- 响应体
+- 12 switchCage
+- 接⼝说明
+- 响应体
+- 13 getMissionBySubId
+- 请求参数(Query Param)
+- 请求体(Request Body)
+- 响应体
+- 接⼝说明
+- 响应体
+- 15 获取任务总⾥程和总时⻓(任务完成后10分钟可调⽤)
+- 接⼝说明
+- 响应体
+- 16批量获取实时基础信息
+- 接⼝说明
+- 请求参数(Query Param)
+- 请求体(Request Body)
+- 响应体
+- 17 ⻋辆基础信息列表 $( \mathsf { T } + \mathsf { 1 } )$
+- 接⼝说明
+- 请求参数(Query Param)
+- 响应体
+
+---
+
+> **Disclaimer:** This content is provided for personal study and research purposes only. All rights belong to the original authors and copyright holders. This is not an authorized distribution. If you are the rights holder and wish to have this content removed, please contact the repository owner.

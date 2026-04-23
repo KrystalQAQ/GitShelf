@@ -1,0 +1,297 @@
+{
+  "title": "新石器无人车接口文档（2025.07)",
+  "children": [
+    {
+      "title": "新⽯器⽆⼈⻋接⼝⽂档 （2025.05）",
+      "slug": "01-新-器-⻋接-档-2025-05"
+    },
+    {
+      "title": "1 请求说明",
+      "slug": "02-1-请求说明"
+    },
+    {
+      "title": "1.1、请求地址:",
+      "slug": "03-1-1-请求地址"
+    },
+    {
+      "title": "1.2、⾃定义http协议头",
+      "slug": "04-1-2-定义http协议头"
+    },
+    {
+      "title": "1.2.1、X-From",
+      "slug": "05-1-2-1-x-from"
+    },
+    {
+      "title": "1.2.2、X-Version",
+      "slug": "06-1-2-2-x-version"
+    },
+    {
+      "title": "1.3、Token⽣成规则",
+      "slug": "07-1-3-token-成规则"
+    },
+    {
+      "title": "代码块",
+      "slug": "08-代码块"
+    },
+    {
+      "title": "2 getAccessToken",
+      "slug": "09-2-getaccesstoken"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "10-接-说明"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "11-请求参数-query-param"
+    },
+    {
+      "title": "响应体",
+      "slug": "12-响应体"
+    },
+    {
+      "title": "3 getVehicleList",
+      "slug": "13-3-getvehiclelist"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "14-接-说明"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "15-请求参数-query-param"
+    },
+    {
+      "title": "响应体",
+      "slug": "16-响应体"
+    },
+    {
+      "title": "4 getVehicleInfo",
+      "slug": "17-4-getvehicleinfo"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "18-接-说明"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "19-请求参数-query-param"
+    },
+    {
+      "title": "响应体",
+      "slug": "20-响应体"
+    },
+    {
+      "title": "5 listStationByVin",
+      "slug": "21-5-liststationbyvin"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "22-接-说明"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "23-请求参数-query-param"
+    },
+    {
+      "title": "响应体",
+      "slug": "24-响应体"
+    },
+    {
+      "title": "6 missionStart",
+      "slug": "25-6-missionstart"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "26-接-说明"
+    },
+    {
+      "title": "响应体",
+      "slug": "27-响应体"
+    },
+    {
+      "title": "7 getCurrentMission",
+      "slug": "28-7-getcurrentmission"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "29-接-说明"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "30-请求参数-query-param"
+    },
+    {
+      "title": "请求体(Request Body)",
+      "slug": "31-请求体-request-body"
+    },
+    {
+      "title": "响应体",
+      "slug": "32-响应体"
+    },
+    {
+      "title": "8 getPlanningRoute",
+      "slug": "33-8-getplanningroute"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "34-接-说明"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "35-请求参数-query-param"
+    },
+    {
+      "title": "请求体(Request Body)",
+      "slug": "36-请求体-request-body"
+    },
+    {
+      "title": "响应体",
+      "slug": "37-响应体"
+    },
+    {
+      "title": "9 missionCancel（⻋速为0时⽅可取消）",
+      "slug": "38-9-missioncancel-⻋速为0时-可取消"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "39-接-说明"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "40-请求参数-query-param"
+    },
+    {
+      "title": "响应体",
+      "slug": "41-响应体"
+    },
+    {
+      "title": "代码块",
+      "slug": "42-代码块"
+    },
+    {
+      "title": "10 cabinetOpen",
+      "slug": "43-10-cabinetopen"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "44-接-说明"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "45-请求参数-query-param"
+    },
+    {
+      "title": "请求体(Request Body)",
+      "slug": "46-请求体-request-body"
+    },
+    {
+      "title": "响应体",
+      "slug": "47-响应体"
+    },
+    {
+      "title": "11 powerOnOff",
+      "slug": "48-11-poweronoff"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "49-接-说明"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "50-请求参数-query-param"
+    },
+    {
+      "title": "请求体(Request Body)",
+      "slug": "51-请求体-request-body"
+    },
+    {
+      "title": "响应体",
+      "slug": "52-响应体"
+    },
+    {
+      "title": "12 switchCage",
+      "slug": "53-12-switchcage"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "54-接-说明"
+    },
+    {
+      "title": "响应体",
+      "slug": "55-响应体"
+    },
+    {
+      "title": "13 getMissionBySubId",
+      "slug": "56-13-getmissionbysubid"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "57-请求参数-query-param"
+    },
+    {
+      "title": "请求体(Request Body)",
+      "slug": "58-请求体-request-body"
+    },
+    {
+      "title": "响应体",
+      "slug": "59-响应体"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "60-接-说明"
+    },
+    {
+      "title": "响应体",
+      "slug": "61-响应体"
+    },
+    {
+      "title": "15 获取任务总⾥程和总时⻓(任务完成后10分钟可调⽤)",
+      "slug": "62-15-获取任务总-程和总时⻓-任务完成后10分钟可调"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "63-接-说明"
+    },
+    {
+      "title": "响应体",
+      "slug": "64-响应体"
+    },
+    {
+      "title": "16批量获取实时基础信息",
+      "slug": "65-16批量获取实时基础信息"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "66-接-说明"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "67-请求参数-query-param"
+    },
+    {
+      "title": "请求体(Request Body)",
+      "slug": "68-请求体-request-body"
+    },
+    {
+      "title": "响应体",
+      "slug": "69-响应体"
+    },
+    {
+      "title": "17 ⻋辆基础信息列表 $( \\mathsf { T } + \\mathsf { 1 } )$",
+      "slug": "70-17-⻋辆基础信息列表-mathsf-t-mathsf-1"
+    },
+    {
+      "title": "接⼝说明",
+      "slug": "71-接-说明"
+    },
+    {
+      "title": "请求参数(Query Param)",
+      "slug": "72-请求参数-query-param"
+    },
+    {
+      "title": "响应体",
+      "slug": "73-响应体"
+    }
+  ]
+}

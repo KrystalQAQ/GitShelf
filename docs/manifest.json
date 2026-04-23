@@ -29,6 +29,20 @@
       "word_count": 269
     },
     {
+      "id": "新石器无人车接口文档-2025-07",
+      "type": "book",
+      "title": "新石器无人车接口文档（2025.07)",
+      "author": null,
+      "summary": null,
+      "tags": [],
+      "featured": false,
+      "source": "新石器无人车接口文档（2025.07).pdf",
+      "created_at": "2026-04-23T07:23:16Z",
+      "updated_at": "2026-04-23T07:23:16Z",
+      "chapters_count": 73,
+      "word_count": 1161
+    },
+    {
       "id": "监控单车页面iframe嵌入开发文档",
       "type": "book",
       "title": "监控单车页面iframe嵌入开发文档",
